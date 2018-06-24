@@ -11,7 +11,7 @@ import android.support.v7.app.AppCompatActivity;
  */
 
 public abstract class SingleFragmentActivity extends AppCompatActivity {
-    protected abstract mainFragment createFragment();
+    protected abstract TaskFragment createFragment();
 
     @LayoutRes
     protected int getLayoutResId(){
