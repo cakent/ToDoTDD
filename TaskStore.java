@@ -14,7 +14,7 @@ import java.util.List;
         List<Tasks> selectAll();
         @Query("SELECT * FROM tasks WHERE id=:id")
         Tasks findById(String id);
-        @Insert
+        @Insert(onConflict = OnConflictStrategy.REPLACE)
         void insert(Tasks... tasks);
         @Update
         void update(Tasks... tasks);
