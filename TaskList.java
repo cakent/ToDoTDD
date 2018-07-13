@@ -1,10 +1,11 @@
 /*
-Finally able to get room working, needed to put everything on background thread. Still need to make it all clickable, and launch the details screen. 
+Finally able to get room working, needed to put everything on background thread. Still need to make it all clickable, and launch the details screen.
  */
 
 package com.example.ckent.todotdd;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -76,7 +77,7 @@ public class TaskList extends RecyclerViewActivity {
 
         }
     }
-    static class RowHolder extends RecyclerView.ViewHolder {
+    static class RowHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView title=null;
         TextView description=null;
 
@@ -89,7 +90,12 @@ public class TaskList extends RecyclerViewActivity {
             description=(TextView)row.findViewById(R.id.size);
 
 
+            row.setOnClickListener(this);
+        }
+        @Override
+        public void onClick(View v) {
 
+            v.getContext().startActivity(new Intent(v.getContext(), TaskActivity.class));
         }
 
         void bindModel(Tasks item) {
