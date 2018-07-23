@@ -80,6 +80,7 @@ public class TaskList extends RecyclerViewActivity {
     static class RowHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView title=null;
         TextView description=null;
+        String iD=null;
 
 
 
@@ -95,12 +96,16 @@ public class TaskList extends RecyclerViewActivity {
         @Override
         public void onClick(View v) {
 
-            v.getContext().startActivity(new Intent(v.getContext(), TaskActivity.class));
+            Intent intent = new Intent(v.getContext(), TaskActivity.class);
+            intent.putExtra(TaskActivity.EXTRA_MESSAGE,iD);
+            v.getContext().startActivity(intent);
         }
 
         void bindModel(Tasks item) {
             title.setText(item.title);
             description.setText(item.desc);
+            iD = item.id;
+
 
 
         }
