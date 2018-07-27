@@ -96,8 +96,8 @@ public class TaskList extends RecyclerViewActivity {
         @Override
         public void onClick(View v) {
 
-            Intent intent = new Intent(v.getContext(), TaskActivity.class);
-            intent.putExtra(TaskActivity.EXTRA_MESSAGE,iD);
+            Intent intent = new Intent(v.getContext(), TaskDetailActivity.class);
+            intent.putExtra(TaskDetailActivity.EXTRA_MESSAGE,iD);
             v.getContext().startActivity(intent);
         }
 
