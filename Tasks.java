@@ -12,8 +12,26 @@ public class Tasks {
     @PrimaryKey
     @NonNull
     public final String id;
-    public final String title;
-    public final String desc;
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String title;
+
+    public String getDesc() {
+        return desc;
+    }
+
+    public void setDesc(String desc) {
+        this.desc = desc;
+    }
+
+    public String desc;
 
 
     @Ignore
@@ -26,6 +44,7 @@ public class Tasks {
         this.title=title;
         this.desc=desc;
     }
+
 
     @Override
     public String toString(){
