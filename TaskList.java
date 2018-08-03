@@ -12,6 +12,8 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -46,6 +48,26 @@ public class TaskList extends RecyclerViewActivity {
         }
 
     }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        super.onCreateOptionsMenu(menu);
+        getMenuInflater().inflate(R.menu.listscreenactions, menu);
+        return(true);
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.newItem:
+                Intent intent = new Intent(this,AddTaskActivity.class);
+
+                this.startActivity(intent);
+
+                return (true);}
+        return(super.onOptionsItemSelected(item));
+    }
+
+
+
 
     private void setAdapter() {
         setAdapter(new IconicAdapter(items,getLayoutInflater()));
@@ -77,6 +99,8 @@ public class TaskList extends RecyclerViewActivity {
 
         }
     }
+
+
     static class RowHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView title=null;
         TextView description=null;
@@ -110,6 +134,8 @@ public class TaskList extends RecyclerViewActivity {
 
         }
     }
+
+
     private class SelectAllTask extends AsyncTask<Void, Void, List<Tasks>>{
 
         private final Context app;
@@ -143,6 +169,7 @@ public class TaskList extends RecyclerViewActivity {
 
         }
     }
+
 
 
 
