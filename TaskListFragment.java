@@ -1,18 +1,16 @@
-/*
-Finally able to get room working, needed to put everything on background thread. Still need to make it all clickable, and launch the details screen.
- */
-
 package com.example.ckent.todotdd;
 
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,25 +18,30 @@ import android.widget.TextView;
 
 import java.util.List;
 
-public class TaskList extends RecyclerViewActivity {
-
+public class TaskListFragment extends Fragment {
     private AsyncTask task = null;
     private final String TAG = "taggytagtag";
-
+    private RecyclerView taskRecyclerView;
     List<Tasks> items=null;
+    private IconicAdapter adapter;
 
 
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
+        View v = inflater.inflate(R.layout.fragmenttasklist,container,false);
+        taskRecyclerView = (RecyclerView) v.findViewById(R.id.taskList_recycler_view);
+        taskRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
+        return v;
+    }
     @Override
     public void onCreate(Bundle state) {
         super.onCreate(state);
-
-        setLayoutManager(new LinearLayoutManager(this));
+        setHasOptionsMenu(true);
 
 
         if(items==null){
             if(task==null){
-                task= new SelectAllTask(this).execute();
+                task= new SelectAllTask(getContext()).execute();
                 if(task.getStatus()== AsyncTask.Status.RUNNING){
                     Log.i(TAG,"It's running");
                 }
@@ -48,17 +51,18 @@ public class TaskList extends RecyclerViewActivity {
         }
 
     }
+
+
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        super.onCreateOptionsMenu(menu);
-        getMenuInflater().inflate(R.menu.listscreenactions, menu);
-        return(true);
+    public void onCreateOptionsMenu(Menu menu,MenuInflater inflater){
+        super.onCreateOptionsMenu(menu,inflater);
+        inflater.inflate(R.menu.listscreenactions,menu);
     }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.newItem:
-                Intent intent = new Intent(this,AddTaskActivity.class);
+                Intent intent = new Intent(this.getContext(),AddTaskActivity.class);
 
                 this.startActivity(intent);
 
@@ -70,7 +74,7 @@ public class TaskList extends RecyclerViewActivity {
 
 
     private void setAdapter() {
-        setAdapter(new IconicAdapter(items,getLayoutInflater()));
+           taskRecyclerView.setAdapter(new IconicAdapter(items,getLayoutInflater()));
     }
     class IconicAdapter extends RecyclerView.Adapter<RowHolder> {
         @Override
@@ -141,7 +145,7 @@ public class TaskList extends RecyclerViewActivity {
         private final Context app;
 
         SelectAllTask(Context ctxt){
-          this.app=getApplicationContext();
+            this.app=getContext();
         }
 
         @Override
@@ -159,7 +163,7 @@ public class TaskList extends RecyclerViewActivity {
 
             return(results);
         }
-//Finally able to get all of this working
+        //Finally able to get all of this working
         protected void onPostExecute(List<Tasks> tasks) {
             Log.i(TAG,"post executed");
             items=tasks;
@@ -169,9 +173,4 @@ public class TaskList extends RecyclerViewActivity {
 
         }
     }
-
-
-
-
-
 }

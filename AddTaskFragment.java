@@ -87,7 +87,7 @@ public class AddTaskFragment extends Fragment {
         }
 
         protected void onPostExecute(Tasks tasks) {
-            Intent intent = new Intent(getActivity(),TaskList.class);
+            Intent intent = new Intent(getActivity(),TaskListActivity.class);
 
            getActivity().startActivity(intent);
 
