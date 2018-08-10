@@ -16,6 +16,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 public class TaskListFragment extends Fragment {
@@ -108,6 +110,7 @@ public class TaskListFragment extends Fragment {
     static class RowHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView title=null;
         TextView description=null;
+        TextView status = null;
         String iD=null;
 
 
@@ -117,6 +120,7 @@ public class TaskListFragment extends Fragment {
 
             title=(TextView)row.findViewById(R.id.label);
             description=(TextView)row.findViewById(R.id.size);
+            status = (TextView)row.findViewById(R.id.status);
 
 
             row.setOnClickListener(this);
@@ -130,8 +134,10 @@ public class TaskListFragment extends Fragment {
         }
 
         void bindModel(Tasks item) {
+            DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
             title.setText(item.title);
             description.setText(item.desc);
+            status.setText(dateFormat.format(item.dueDate));
             iD = item.id;
 
 

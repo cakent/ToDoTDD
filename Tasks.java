@@ -4,6 +4,8 @@ import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
+
+import java.util.Date;
 import java.util.UUID;
 
 
@@ -23,6 +25,18 @@ public class Tasks {
 
     public String title;
 
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String status;
+
+    public Date dueDate;
+
     public String getDesc() {
         return desc;
     }
@@ -40,9 +54,13 @@ public class Tasks {
     }
 
     Tasks(@NonNull String id, String title, String desc) {
+        Date today = new Date();
+        this.dueDate=today;
         this.id=id;
         this.title=title;
         this.desc=desc;
+        this.status="incomplete";
+
     }
 
 

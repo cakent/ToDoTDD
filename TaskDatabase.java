@@ -2,9 +2,11 @@ package com.example.ckent.todotdd;
 import android.arch.persistence.room.Database;
 import android.arch.persistence.room.Room;
 import android.arch.persistence.room.RoomDatabase;
+import android.arch.persistence.room.TypeConverters;
 import android.content.Context;
 
 @Database(entities={Tasks.class},version = 1)
+@TypeConverters({TypeTransmogrifiers.class})
 abstract class TaskDatabase extends RoomDatabase{
     abstract TaskStore taskStore();
 
