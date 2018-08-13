@@ -14,6 +14,8 @@ import java.util.List;
         List<Tasks> selectAll();
         @Query("SELECT * FROM tasks WHERE id=:id")
         Tasks findById(String id);
+        @Query("SELECT * FROM tasks WHERE status='incomplete'")
+        List<Tasks> selectIncomplete();
         @Insert(onConflict = OnConflictStrategy.REPLACE)
         void insert(Tasks... tasks);
         @Update

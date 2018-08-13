@@ -158,11 +158,11 @@ public class TaskListFragment extends Fragment {
         protected List<Tasks> doInBackground(Void... params){
             TaskStore store = TaskDatabase.get(app).taskStore();
 
-            List<Tasks> results = store.selectAll();
+            List<Tasks> results = store.selectIncomplete();
             if (results==null || results.size()==0) {
                 store.insert(new Tasks("Vacation!", "hello"),
                         new Tasks("Business ", "goodbye"));
-                results=store.selectAll();
+                results=store.selectIncomplete();
             }
             Log.i(TAG, "Doing stuff!!!!"+results.size());
 

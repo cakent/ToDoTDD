@@ -35,6 +35,14 @@ public class Tasks {
 
     public String status;
 
+    public Date getDueDate() {
+        return dueDate;
+    }
+
+    public void setDueDate(Date dueDate) {
+        this.dueDate = dueDate;
+    }
+
     public Date dueDate;
 
     public String getDesc() {

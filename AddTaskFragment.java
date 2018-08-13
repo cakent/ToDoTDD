@@ -1,5 +1,6 @@
 package com.example.ckent.todotdd;
 
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -10,11 +11,25 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
+
+import java.util.Calendar;
 
 public class AddTaskFragment extends Fragment {
     public Tasks item = new Tasks("","");
     private AsyncTask task = null;
+    Calendar dateAndTime=Calendar.getInstance();
+    DatePickerDialog.OnDateSetListener d =new DatePickerDialog.OnDateSetListener() {
+        public void onDateSet(DatePicker view, int year, int monthOfYear,
+                              int dayOfMonth) {
+            dateAndTime.set(Calendar.YEAR, year);
+            dateAndTime.set(Calendar.MONTH, monthOfYear);
+            dateAndTime.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+            item.setDueDate(dateAndTime.getTime());
+
+        } };
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -26,8 +41,10 @@ public class AddTaskFragment extends Fragment {
         View v = inflater.inflate(R.layout.addtask_fragment,container,false);
         final  EditText titleText =(EditText) v.findViewById(R.id.titleEditText);
         final  EditText detailText = (EditText) v.findViewById(R.id.detailEditText);
+        final EditText datePicker = (EditText) v.findViewById(R.id.datePicker);
 
         Button save =(Button) v.findViewById(R.id.addTaskButton);
+
 
 
         titleText.addTextChangedListener(new TextWatcher() {
@@ -63,6 +80,23 @@ public class AddTaskFragment extends Fragment {
 
             }
         });
+
+        datePicker.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new DatePickerDialog(getContext(), d,
+                        dateAndTime.get(Calendar.YEAR),
+                        dateAndTime.get(Calendar.MONTH),
+                        dateAndTime.get(Calendar.DAY_OF_MONTH))
+                        .show();
+
+                datePicker.setText(item.getDueDate().toString());}
+
+
+
+        });
+
+
 
         save.setOnClickListener(new View.OnClickListener() {
             @Override
